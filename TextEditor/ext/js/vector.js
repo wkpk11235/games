@@ -39,3 +39,14 @@ class vector2 {
   }
 }
 nullVect=new vector2(0,0);
+
+function distance(v1,v2){return Math.sqrt(Math.pow(v1.x-v2.x,2)+Math.pow(v1.y-v2.y,2))}
+function rad2deg(r){return r*180/Math.PI;}
+function deg2rad(d){return r*Math.PI/180;}
+
+
+function line2circle(v1,v2,r,pivot=nullVect){
+  //maps the line v1->v2 to a circle with radius r
+  var theta=Math.atan2(v1.y-startPoint.y,v1.x-startPoint.x);
+  return new vector2(Math.cos(theta),Math.sin(theta)).multiply_num(r).add_vect(pivot);
+}

@@ -20,10 +20,10 @@ function drawCircle(x,y,r){
   screen.stroke();
 }
 
-function drawLine(x1,y1,x2,y2){
+function drawLine(v1,v2){
   screen.beginPath();
-  screen.moveTo(x1,y1);
-  screen.lineTo(x2,y2);
+  screen.moveTo(v1.x,v1.y);
+  screen.lineTo(v2.x,v2.y);
   screen.stroke();
 }
 
@@ -33,8 +33,8 @@ function drawLines(linez){
   var t;
   for (i=0;i<l;++i){
     t=linez[i];
-    screen.moveTo(t[0],t[1]);
-    screen.lineTo(t[2],t[3]);
+    screen.moveTo(t[0].x,t[0].y);
+    screen.lineTo(t[1].x,t[1].y);
   }
   screen.stroke();
 }
@@ -53,18 +53,20 @@ function rawInput(vect2){
     startPoint=vect2.normalized(radius,pivotV);
   }
   else {
-    //vect2.self_normalized(radius,pivotV);
-    vect2.self_normalized(radius,startPoint);
-
-    lines.push([startPoint.x,startPoint.y,vect2.x,vect2.y]);
+    var end=line2circle(mouseV,startPoint,radius,pivotV);
+    lines.push([startPoint,end]);
   }
   start=!start;
 }
 
 function drawPrototype(){
-  if (!start&&isCom){drawLine(startPoint.x,startPoint.y,mouseX,mouseY);}
+  if (!start&&isCom){
+    var end=line2circle(mouseV,startPoint,radius,pivotV);
+    drawLine(startPoint,end);
+  }
 }
 
+function str(s){return String(s);}
 
 function main(){
   screen.clearRect(0,0,cw,ch);
